@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "65666793632",
+    "firebase_url": "https://bokingkangbarers.firebaseio.com",
+    "project_id": "bokingkangbarers",
+    "storage_bucket": "bokingkangbarers.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:65666793632:android:d1481097b89a2136",
+        "android_client_info": {
+          "package_name": "com.husin.bokingkangbarers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "65666793632-ae8i0ae18pvev0aaas8bcebfdqjs1tm9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.husin.bokingkangbarers",
+            "certificate_hash": "52019e0f8cec9db708895dc419e6213a819548d8"
+          }
+        },
+        {
+          "client_id": "65666793632-7vlnbp90045kg90051tps8ap53n67n98.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZO26T_JMzwK8K8Qflp_kaueN-9yE2_Qw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "65666793632-7vlnbp90045kg90051tps8ap53n67n98.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
