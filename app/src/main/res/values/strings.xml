@@ -2,4 +2,7 @@
     <string name="app_name">BookingKangBarber</string>
     <string name="FACEBOOK_APP_ID">2416866405017076</string>
     <string name="ACCOUNT_KIT_CLIENT_TOKEN">2f3e542b544ddbec0791a3a86397478b</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

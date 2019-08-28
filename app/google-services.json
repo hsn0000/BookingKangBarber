@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "65666793632-a1ld8ou8vn2vdhqcetqd82rnt3o0809v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.husin.bokingkangbarers",
+            "certificate_hash": "0b64ee9070419ac918d3a2bc462e408d1e8a1546"
+          }
+        },
+        {
           "client_id": "65666793632-ae8i0ae18pvev0aaas8bcebfdqjs1tm9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
