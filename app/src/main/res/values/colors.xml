@@ -8,4 +8,6 @@
     <color name="white">#ffffff</color>
     <color name="abu">#f3f3f3f3</color>
     <color name="colorBackground">#fdf9ee</color>
+    <color name="homeBackground">#dfdfdf</color>
+
 </resources>
