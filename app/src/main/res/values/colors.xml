@@ -9,5 +9,7 @@
     <color name="abu">#f3f3f3f3</color>
     <color name="colorBackground">#fdf9ee</color>
     <color name="homeBackground">#dfdfdf</color>
+    <color name="merah">#FF0000</color>
+    <color name="birulangit">#87CEFA</color>
 
 </resources>
