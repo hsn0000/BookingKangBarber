@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment implements ILoookbookLoadListener, IB
 
     public HomeFragment() {
         bannerRef = FirebaseFirestore.getInstance().collection("Banner");
-        lookbookRef = FirebaseFirestore.getInstance().collection("lookbook");
+        lookbookRef = FirebaseFirestore.getInstance().collection("Lookbook");
     }
 
 
