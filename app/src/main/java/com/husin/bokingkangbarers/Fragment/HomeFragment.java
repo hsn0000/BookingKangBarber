@@ -2,8 +2,10 @@ package com.husin.bokingkangbarers.Fragment;
 
 
 import android.accounts.Account;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +25,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.husin.bokingkangbarers.Adapter.HomeSliderAdapter;
 import com.husin.bokingkangbarers.Adapter.LookbookAdapter;
+import com.husin.bokingkangbarers.BookingActivity;
 import com.husin.bokingkangbarers.Common.Common;
 import com.husin.bokingkangbarers.Interface.IBannerLoadListener;
 import com.husin.bokingkangbarers.Interface.ILoookbookLoadListener;
@@ -33,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import ss.com.bannerslider.Slider;
 
@@ -51,6 +55,12 @@ public class HomeFragment extends Fragment implements ILoookbookLoadListener, IB
     Slider banner_slider;
     @BindView(R.id.recycler_look_book)
     RecyclerView recycler_look_book;
+    @OnClick(R.id.card_view_booking)
+    void booking()
+
+    {
+        startActivity(new Intent(getActivity(), BookingActivity.class));
+    }
 
     // firestore
     CollectionReference bannerRef,lookbookRef;

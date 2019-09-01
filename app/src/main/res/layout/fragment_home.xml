@@ -35,6 +35,7 @@
                 android:text="M/HUSIN"
                 android:textColor="@android:color/white"
                 android:textSize="22dp"
+                android:fontFamily="@font/roboto_light"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -70,7 +71,7 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:background="@color/birulangit"
+                android:background="@color/hijau"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -81,13 +82,12 @@
                     android:layout_height="50dp" />
 
                 <TextView
-                    android:layout_marginTop="1dp"
-                    android:layout_marginLeft="6dp"
+                    android:layout_marginLeft="10dp"
                     android:textColor="@color/colorButton"
-                    android:text="Pemesanan"
+                    android:text="pemesanan"
                     android:layout_gravity="center_horizontal"
                     android:textSize="@dimen/textCardSize"
-                    android:fontFamily="sans-serif-smallcaps"
+                    android:fontFamily="@font/bellerose"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -118,13 +118,12 @@
                     android:layout_height="50dp" />
 
                 <TextView
-                    android:layout_marginTop="1dp"
-                    android:layout_marginLeft="6dp"
+                    android:layout_marginLeft="12dp"
                     android:textColor="@color/colorButton"
                     android:text="Keranjang"
                     android:layout_gravity="center_horizontal"
                     android:textSize="@dimen/textCardSize"
-                    android:fontFamily="sans-serif-smallcaps"
+                    android:fontFamily="@font/bellerose"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -143,7 +142,7 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:background="@color/birulangit"
+                android:background="@color/emas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -155,12 +154,12 @@
 
                 <TextView
                     android:layout_marginTop="1dp"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="19dp"
                     android:textColor="@color/colorButton"
-                    android:text="Histoty"
+                    android:text="histoty"
                     android:layout_gravity="center_horizontal"
                     android:textSize="@dimen/textCardSize"
-                    android:fontFamily="sans-serif-smallcaps"
+                    android:fontFamily="@font/bellerose"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -180,7 +179,7 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:background="@color/birulangit"
+                android:background="@color/merah"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -192,12 +191,12 @@
 
                 <TextView
                     android:layout_marginTop="1dp"
-                    android:layout_marginLeft="9dp"
+                    android:layout_marginLeft="17dp"
                     android:textColor="@color/colorButton"
-                    android:text="Notifikasi"
+                    android:text="notifikasi"
                     android:layout_gravity="center_horizontal"
                     android:textSize="@dimen/textCardSize"
-                    android:fontFamily="sans-serif-smallcaps"
+                    android:fontFamily="@font/bellerose"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -237,17 +236,17 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="7dp"
                     android:layout_marginLeft="7dp"
-                    android:layout_marginTop="320dp"
+                    android:layout_marginTop="250dp"
                     android:layout_marginEnd="2dp"
-                    android:fontFamily="sans-serif-condensed-medium"
-                    android:text="Look book"
+                    android:fontFamily="@font/classique_saigon"
+                    android:text="eviden kita"
                     android:textColor="@color/colorButton"
                     android:textSize="18sp" />
 
             </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="120dp"
+                android:layout_marginTop="110dp"
                 android:id="@+id/recycler_look_book"
                 android:layout_gravity="center_vertical"
                 android:orientation="horizontal"

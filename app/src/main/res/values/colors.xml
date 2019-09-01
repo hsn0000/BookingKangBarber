@@ -9,7 +9,9 @@
     <color name="abu">#f3f3f3f3</color>
     <color name="colorBackground">#fdf9ee</color>
     <color name="homeBackground">#dfdfdf</color>
-    <color name="merah">#FF0000</color>
-    <color name="birulangit">#87CEFA</color>
+    <color name="merah">#FF4500</color>
+    <color name="birulangit">#3333FF</color>
+    <color name="emas">#FFD700</color>
+    <color name="hijau">#9ACD32</color>
 
 </resources>
