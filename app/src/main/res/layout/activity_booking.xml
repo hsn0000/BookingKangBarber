@@ -43,6 +43,7 @@
 
         <Button
             android:id="@+id/btn_previous_step"
+            android:enabled="false"
             android:text="Sebelumnya"
             android:fontFamily="sans-serif-thin"
             android:layout_centerHorizontal="true"
@@ -56,6 +57,7 @@
 
         <Button
             android:id="@+id/btn_next_step"
+            android:enabled="false"
             android:text="selanjutnya"
             android:fontFamily="sans-serif-thin"
             android:layout_centerHorizontal="true"

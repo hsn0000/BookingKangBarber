@@ -2,14 +2,22 @@ package com.husin.bokingkangbarers;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
+
 import com.husin.bokingkangbarers.Adapter.MyViewPagerAdapter;
+import com.husin.bokingkangbarers.Common.Common;
 import com.shuhart.stepview.StepView;
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class BookingActivity extends AppCompatActivity {
 
@@ -21,6 +29,23 @@ public class BookingActivity extends AppCompatActivity {
     Button btn_previous_step;
     @BindView(R.id.btn_next_step)
     Button btn_next_step;
+
+    //event
+    @OnClick(R.id.btn_next_step)
+    void nextClick() {
+        Toast.makeText(this, ""+Common.currentSalon.getSalonId(),Toast.LENGTH_SHORT).show();
+    }
+
+
+  //Broadcast Receiver
+    private BroadcastReceiver buttonNextReceiver = new BroadcastReceiver() {
+      @Override
+      public void onReceive(Context context, Intent intent) {
+          Common.currentSalon = intent.getParcelableExtra(Common.KEY_SALON_STORE);
+          btn_next_step.setEnabled(true);
+          setColorButton();
+      }
+  };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
