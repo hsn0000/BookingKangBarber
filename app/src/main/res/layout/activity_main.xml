@@ -11,7 +11,7 @@
 
     <ImageView
         android:layout_width="403dp"
-        android:layout_height="220dp"
+        android:layout_height="208dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
@@ -25,32 +25,40 @@
         android:layout_above="@+id/btn_login"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="179dp"
-        android:layout_marginBottom="122dp"
-        android:src="@drawable/barber5" />
+        android:layout_marginTop="165dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/background2" />
 
 
 
     <TextView
         android:id="@+id/txt_skip"
-        android:fontFamily="sans-serif-condensed-medium"
-        android:text="Just Skip"
+        android:layout_marginTop="6dp"
+        android:fontFamily="@font/bellerose"
+        android:text="Lewati Sajah"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:textSize="24sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
     <Button
         android:id="@+id/btn_login"
-        android:text="Login"
-        android:textSize="22dp"
-        android:layout_above="@+id/txt_skip"
-        android:fontFamily="sans-serif-condensed-medium"
-        android:textColor="@color/white"
-        android:background="@color/colorButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txt_skip"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/colorButton"
+        android:fontFamily="@font/bellerose"
+        android:text="Login"
+        android:textColor="@color/white"
+        android:textSize="22dp" />
 
 
 
