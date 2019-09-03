@@ -21,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.husin.bokingkangbarers.Adapter.MySalonAdapter;
+import com.husin.bokingkangbarers.Common.Common;
 import com.husin.bokingkangbarers.Common.SpacesItemDecoration;
 import com.husin.bokingkangbarers.Interface.IAllSalonLoadListener;
 import com.husin.bokingkangbarers.Interface.IBranchLoadListener;
@@ -70,7 +71,7 @@ public class BookingStep1Fragment extends Fragment implements IAllSalonLoadListe
         iAllSalonLoadListener = this;
         iBranchLoadListener = this;
 
-        dialog = new SpotsDialog.Builder().setContext(getActivity()).build();
+        dialog = new SpotsDialog.Builder().setContext(getActivity()).setCancelable(false).build();
     }
 
     @Nullable
@@ -136,6 +137,9 @@ public class BookingStep1Fragment extends Fragment implements IAllSalonLoadListe
 
     private void loadBranchOfCity(String cityName)   {
          dialog.show();
+
+         Common.city = cityName;
+
          branchRef = FirebaseFirestore.getInstance()
                  .collection("AllSalon")
                  .document(cityName)

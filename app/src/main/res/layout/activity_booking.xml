@@ -25,7 +25,7 @@
         app:sv_typeface="@font/bellerose"
         app:sv_stepPadding="12dp" />
 
-    <androidx.viewpager.widget.ViewPager
+    <com.husin.bokingkangbarers.Common.NonSwipeViewPager
         android:id="@+id/view_pager"
         android:layout_below="@+id/step_view"
         android:layout_above="@+id/layout_button"
