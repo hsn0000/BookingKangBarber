@@ -15,12 +15,18 @@ import com.husin.bokingkangbarers.Model.TimeSlot;
 import com.husin.bokingkangbarers.R;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyTimeSlotAdapter extends RecyclerView.Adapter<MyTimeSlotAdapter.MyViewHolder> {
 
     Context context;
     List<TimeSlot> timeSlotList;
+
+    public MyTimeSlotAdapter(Context context) {
+        this.context = context;
+        this.timeSlotList = new ArrayList<>();
+    }
 
     public MyTimeSlotAdapter(Context context, List<TimeSlot> timeSlotList) {
         this.context = context;
@@ -43,7 +49,7 @@ public class MyTimeSlotAdapter extends RecyclerView.Adapter<MyTimeSlotAdapter.My
 
             myViewHolder.card_time_slot.setCardBackgroundColor(context.getResources().getColor(android.R.color.white));
 
-            myViewHolder.txt_time_slot_description.setText("Available");
+            myViewHolder.txt_time_slot_description.setText("Tersedia");
             myViewHolder.txt_time_slot_description.setTextColor(context.getResources()
               .getColor(android.R.color.black));
             myViewHolder.txt_time_slot.setTextColor(context.getResources().getColor(android.R.color.black));
