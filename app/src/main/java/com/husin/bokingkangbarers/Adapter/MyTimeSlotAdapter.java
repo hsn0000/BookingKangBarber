@@ -93,28 +93,30 @@ public class MyTimeSlotAdapter extends RecyclerView.Adapter<MyTimeSlotAdapter.My
             cardViewList.add(myViewHolder.card_time_slot);
 
         // cek jika kartu masih tersedia
-        myViewHolder.setiRecyclerItemSelectedListener(new IRecyclerItemSelectedListener() {
-            @Override
-            public void onItemSelectedListener(View view, int pos) {
-                // loop semua kartu dalam daftar kartu
-                for (CardView cardView:cardViewList)
-                {
-                    if (cardView.getTag() == null) // kartu langsung tersedia untuk memilih selot
-                        cardView.setBackgroundColor(context.getResources()
-                                .getColor(android.R.color.white));
-                }
-                // kartu berubah warna saat di pilih
-                myViewHolder.card_time_slot.setBackgroundColor(context.getResources()
-                .getColor(android.R.color.holo_orange_dark));
 
-                // sebelumnya kirim broadcast ke enable button NEXT
-                Intent intent = new Intent(Common.KEY_ENABLE_BUTTON_NEXT);
-                intent.putExtra(Common.KEY_TIME_SLOT,i); // menempatkan indeks slot waktu yang telah di pilih
-                intent.putExtra(Common.KEY_STEP, 3); // pergi ke langkah 3
-                localBroadcastManager.sendBroadcast(intent);
-            }
-        });
-    }
+            myViewHolder.setiRecyclerItemSelectedListener(new IRecyclerItemSelectedListener() {
+                @Override
+                public void onItemSelectedListener(View view, int pos) {
+                    // loop semua kartu dalam daftar kartu
+                    for (CardView cardView:cardViewList)
+                    {
+                        if (cardView.getTag() == null) // kartu langsung tersedia untuk memilih selot
+                            cardView.setCardBackgroundColor(context.getResources()
+                                    .getColor(android.R.color.white));
+                    }
+                    // kartu berubah warna saat di pilih
+                    myViewHolder.card_time_slot.setCardBackgroundColor(context.getResources()
+                            .getColor(android.R.color.holo_orange_dark));
+
+                    // sebelumnya kirim broadcast ke enable button NEXT
+                    Intent intent = new Intent(Common.KEY_ENABLE_BUTTON_NEXT);
+                    intent.putExtra(Common.KEY_TIME_SLOT,i); // menempatkan indeks slot waktu yang telah di pilih
+                    intent.putExtra(Common.KEY_STEP, 3); // pergi ke langkah 3
+                    localBroadcastManager.sendBroadcast(intent);
+                }
+            });
+
+        }
 
     @Override
     public int getItemCount() {

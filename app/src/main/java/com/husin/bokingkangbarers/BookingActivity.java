@@ -57,6 +57,11 @@ public class BookingActivity extends AppCompatActivity {
         {
             Common.step--;
             viewPager.setCurrentItem(Common.step);
+            if (Common.step < 3) // alway enable next when step <3
+            {
+                btn_next_step.setEnabled(true);
+                setColorButton();
+            }
         }
     }
     @OnClick(R.id.btn_next_step)
