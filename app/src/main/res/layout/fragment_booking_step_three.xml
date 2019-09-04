@@ -11,8 +11,8 @@
 
     <devs.mulham.horizontalcalendar.HorizontalCalendarView
         android:id="@+id/calendarView"
-        android:background="@color/colorPrimary"
-        app:textColorSelected="@color/white"
+        android:background="@color/birulangit"
+        app:textColorSelected="@color/colorButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
