@@ -1,11 +1,14 @@
 package com.husin.bokingkangbarers.Common;
 
+import com.google.firebase.Timestamp;
 import com.husin.bokingkangbarers.Model.Barber;
+import com.husin.bokingkangbarers.Model.BookingInformation;
 import com.husin.bokingkangbarers.Model.Salon;
 import com.husin.bokingkangbarers.Model.User;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Common {
 
@@ -19,6 +22,7 @@ public class Common {
     public static final Object DISABLE_TAG = "DISABLE";
     public static final String KEY_TIME_SLOT = "TIME_SLOT";
     public static final String KEY_CONFIRM_BOOKING = "CONFIRM_BOOKING";
+    public static final String EVENT_URI_CACHE = "URI_EVENT_SAVE";
     public static String IS_LOGIN = "isLogin";
     public static User currentUser;
     public static Salon currentSalon;
@@ -28,6 +32,8 @@ public class Common {
     public static int currentTimeSlot=-1;
     public static Calendar bookingDate=Calendar.getInstance();
     public static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd_MM_yyyy");  // only use when need format key
+    public static BookingInformation currentBooking;
+    public static String currentBookingId="";
 
     public static String converTimeSlotToString(int slot) {
         switch (slot)
@@ -79,5 +85,11 @@ public class Common {
 
 
         }
+    }
+
+    public static String convertTimeStampToStringKey(Timestamp timestamp) {
+        Date date = timestamp.toDate();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd_MM_yyyy");
+        return simpleDateFormat.format(date);
     }
 }

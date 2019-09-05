@@ -47,6 +47,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import dmax.dialog.SpotsDialog;
+import io.paperdb.Paper;
 
 public class BookingStep4Fragment extends Fragment {
 
@@ -94,8 +95,9 @@ public class BookingStep4Fragment extends Fragment {
         Timestamp timestamp = new Timestamp(bookingDateWithourHouse.getTime());
 
         // membuat booking information
-        BookingInformation bookingInformation = new BookingInformation();
+        final BookingInformation bookingInformation = new BookingInformation();
 
+        bookingInformation.setCityBook(Common.city);
         bookingInformation.setTimestamp(timestamp);
         bookingInformation.setDone(false); // semua false, fild ini di gunakan di semua untuk menyaring tampilan
         bookingInformation.setBarberId(Common.currentBarber.getBarberId());
@@ -148,8 +150,16 @@ public class BookingStep4Fragment extends Fragment {
                 .collection("Booking");
 
         // cek jika document sudah ada di coleksi ini
-        userBooking.whereEqualTo("Done",false)  // jika punya document lain dengan field done = false
-        .get()
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE,0);
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,0);
+        Timestamp toDayTimeStamp = new Timestamp(calendar.getTime());
+        userBooking
+                .whereGreaterThanOrEqualTo("timestamp",toDayTimeStamp)
+                .whereEqualTo("done",false)
+                .limit(1) // only take 1
+                .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -225,13 +235,13 @@ public class BookingStep4Fragment extends Fragment {
         String endEventTime = calendarDateFormat.format(endEvent.getTime());
 
         addToDeviceCalendar(startEventTime,endEventTime,"Pemesanan Potong Rambut",
-                new StringBuilder("Potong rambut dari")
+                new StringBuilder(" Potong rambut dari jam ")
         .append(startTime)
-        .append(" Dengan ")
+        .append(" Dengan Bapak ")
         .append(Common.currentBarber.getName())
-        .append(" WIB ")
+        .append(" Di ")
         .append(Common.currentSalon.getName()).toString(),
-                new StringBuilder("Alamat: ").append(Common.currentSalon.getAddress()).toString());
+                new StringBuilder(" Alamat Barber: ").append(Common.currentSalon.getAddress()).toString());
     }
 
     private void addToDeviceCalendar(String startEventTime, String endEventTime, String title, String description, String location) {
@@ -264,7 +274,10 @@ public class BookingStep4Fragment extends Fragment {
             else
                 calendars = Uri.parse("content://calendar/events");
 
-            getActivity().getContentResolver().insert(calendars,event);
+             Uri uri_save = getActivity().getContentResolver().insert(calendars,event);
+             // simpan ke cache
+            Paper.init(getActivity());
+            Paper.book().write(Common.EVENT_URI_CACHE,uri_save.toString());
 
 
         } catch (ParseException e) {
