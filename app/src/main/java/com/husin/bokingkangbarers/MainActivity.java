@@ -4,6 +4,7 @@ import androidx.annotation.BinderThread;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.accounts.Account;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -23,9 +24,15 @@ import com.facebook.accountkit.ui.AccountKitActivity;
 import com.facebook.accountkit.ui.AccountKitConfiguration;
 import com.facebook.accountkit.ui.LoginType;
 import com.husin.bokingkangbarers.Common.Common;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -90,19 +97,36 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        AccessToken accessToken = AccountKit.getCurrentAccessToken();
-        if (accessToken != null) // if alredy login
-        {
-            Intent intent = new Intent(this,HomeActivity.class);
-            intent.putExtra(Common.IS_LOGIN, true);
-            startActivity(intent);
-            finish();
-        }
-        else
-        {
-            setContentView(R.layout.activity_main);
-            ButterKnife.bind(MainActivity.this);
-        }
+        Dexter.withActivity(this)
+                .withPermissions(new String[]{
+                        Manifest.permission.READ_CALENDAR,
+                        Manifest.permission.WRITE_CALENDAR
+                }).withListener(new MultiplePermissionsListener() {
+            @Override
+            public void onPermissionsChecked(MultiplePermissionsReport report) {
+                AccessToken accessToken = AccountKit.getCurrentAccessToken();
+                if (accessToken != null) // if alredy login
+                {
+                    Intent intent = new Intent(MainActivity.this,HomeActivity.class);
+                    intent.putExtra(Common.IS_LOGIN, true);
+                    startActivity(intent);
+                    finish();
+                }
+                else
+                {
+                    setContentView(R.layout.activity_main);
+                    ButterKnife.bind(MainActivity.this);
+                }
+
+            }
+
+            @Override
+            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+
+            }
+        }).check();
+
+
 
 
     }
