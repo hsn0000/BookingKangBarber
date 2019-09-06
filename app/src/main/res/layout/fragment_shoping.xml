@@ -33,7 +33,7 @@
         android:layout_marginLeft="9sp"
        app:chipBackgroundColor="@android:color/holo_orange_dark"
         android:textColor="@color/colorButton"
-        android:text="Pomad"
+        android:text="Pomade"
         style="@style/Widget.MaterialComponents.Chip.Choice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
