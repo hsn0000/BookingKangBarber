@@ -5,6 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/colorBackground"
     android:orientation="vertical"
+    android:padding="4dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -237,11 +238,9 @@
 
         <Button
             android:id="@+id/btn_confirm"
-            android:layout_width="349dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/txt_skip"
-            android:layout_marginLeft="28dp"
-            android:layout_marginTop="12dp"
             android:background="@color/colorButton"
             android:fontFamily="@font/bellerose"
             android:text="KONFIRMASI"
