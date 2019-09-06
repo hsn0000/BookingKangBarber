@@ -105,6 +105,7 @@ public class ShopingFragment extends Fragment implements IShoppingDataLoadListen
                    for (DocumentSnapshot itemSnapShot:task.getResult())
                    {
                        ShoppingItem shoppingItem = itemSnapShot.toObject(ShoppingItem.class);
+                       shoppingItem.setId(itemSnapShot.getId()); //  get null refrence
                        shoppingItems.add(shoppingItem);
                    }
                    iShoppingDataLoadListener.onShoppingDataLoadSuccess(shoppingItems);
