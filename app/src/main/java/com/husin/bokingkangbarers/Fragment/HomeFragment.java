@@ -102,8 +102,8 @@ public class HomeFragment extends Fragment implements ILoookbookLoadListener, IB
                 .setCancelable(false)
                 .setTitle("Hallo!")
                 .setMessage("Anda benar-benar ingin mengubah informasi pemesanan?\n" +
-                        "Karena kami akan menghapus informasi pemesanan lama Anda\n" +
-                        "KONFIRMASI SAJAH")
+                        "Karena kami akan menghapus informasi pemesanan lama Anda..\n" +
+                        "KONFIRMASI SAJAH!")
                 .setNegativeButton("BATAL", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

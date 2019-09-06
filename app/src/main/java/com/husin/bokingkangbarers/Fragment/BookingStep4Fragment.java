@@ -179,7 +179,7 @@ public class BookingStep4Fragment extends Fragment {
                                                     Common.converTimeSlotToString(Common.currentTimeSlot));
                                             resetStaticData();
                                             getActivity().finish();  // close activitiy
-                                            Toast.makeText(getContext(),"Trimakasih, Pesanan Segera Di Proses!!",Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getContext(),"Trimakasih, Pesanan Anda Segera Di Proses!!",Toast.LENGTH_SHORT).show();
 
                                         }
                                     })
@@ -198,7 +198,7 @@ public class BookingStep4Fragment extends Fragment {
                                 dialog.dismiss();
                             resetStaticData();
                             getActivity().finish();  // close activitiy
-                            Toast.makeText(getContext(),"Trimakasih, Pesanan Segera Di Proses!!",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),"Trimakasih, Pesanan Anda Segera Di Proses!!",Toast.LENGTH_SHORT).show();
 
                         }
 
@@ -234,14 +234,14 @@ public class BookingStep4Fragment extends Fragment {
         String startEventTime = calendarDateFormat.format(startEvent.getTime());
         String endEventTime = calendarDateFormat.format(endEvent.getTime());
 
-        addToDeviceCalendar(startEventTime,endEventTime,"Pemesanan Potong Rambut",
+        addToDeviceCalendar(startEventTime,endEventTime," Pemesanan Potong Rambut ",
                 new StringBuilder(" Potong rambut dari jam ")
         .append(startTime)
         .append(" Dengan Bapak ")
         .append(Common.currentBarber.getName())
         .append(" Di ")
         .append(Common.currentSalon.getName()).toString(),
-                new StringBuilder(" Alamat Barber: ").append(Common.currentSalon.getAddress()).toString());
+                new StringBuilder(" Alamat Barber : ").append(Common.currentSalon.getAddress()).toString());
     }
 
     private void addToDeviceCalendar(String startEventTime, String endEventTime, String title, String description, String location) {

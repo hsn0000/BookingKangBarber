@@ -237,15 +237,16 @@
 
         <Button
             android:id="@+id/btn_confirm"
-            android:layout_width="match_parent"
+            android:layout_width="349dp"
             android:layout_height="wrap_content"
             android:layout_above="@+id/txt_skip"
+            android:layout_marginLeft="28dp"
             android:layout_marginTop="12dp"
             android:background="@color/colorButton"
-            android:fontFamily="@font/classique_saigon"
+            android:fontFamily="@font/bellerose"
             android:text="KONFIRMASI"
             android:textColor="@color/white"
-            android:textSize="24dp" />
+            android:textSize="20dp" />
 
 
     </LinearLayout>
