@@ -36,6 +36,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.husin.bokingkangbarers.Adapter.HomeSliderAdapter;
 import com.husin.bokingkangbarers.Adapter.LookbookAdapter;
 import com.husin.bokingkangbarers.BookingActivity;
+import com.husin.bokingkangbarers.CartActivity;
 import com.husin.bokingkangbarers.Common.Common;
 import com.husin.bokingkangbarers.Database.CartDatabase;
 import com.husin.bokingkangbarers.Database.DatabaseUtils;
@@ -217,6 +218,11 @@ public class HomeFragment extends Fragment implements ILoookbookLoadListener, IB
 
     {
         startActivity(new Intent(getActivity(), BookingActivity.class));
+    }
+
+    @OnClick(R.id.card_view_cart)
+    void openCartActivity () {
+        startActivity(new Intent(getActivity(),CartActivity.class));
     }
 
     // firestore

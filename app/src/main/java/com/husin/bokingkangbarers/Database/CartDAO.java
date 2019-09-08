@@ -14,6 +14,10 @@ import butterknife.OnClick;
 
 @Dao
 public interface CartDAO {
+
+    @Query("SELECT SUM(productPrice*productQuantity)from Cart where userPhone=:userPhone")
+    long sumPrice(String userPhone);
+
     @Query("SELECT * FROM Cart WHERE userPhone=:userPhone")
     List<CartItem> getAllItemFromCart(String userPhone);
 
