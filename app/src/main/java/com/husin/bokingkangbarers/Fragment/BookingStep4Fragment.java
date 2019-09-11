@@ -34,6 +34,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.husin.bokingkangbarers.Common.Common;
 import com.husin.bokingkangbarers.Model.BookingInformation;
+import com.husin.bokingkangbarers.Model.MyNotification;
 import com.husin.bokingkangbarers.R;
 
 import java.text.ParseException;
@@ -41,6 +42,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -172,15 +174,40 @@ public class BookingStep4Fragment extends Fragment {
                                         @Override
                                         public void onSuccess(Void aVoid) {
 
-                                            if (dialog.isShowing())
-                                                dialog.dismiss();
 
-                                            addToCalendar(Common.bookingDate,
-                                                    Common.converTimeSlotToString(Common.currentTimeSlot));
-                                            resetStaticData();
-                                            getActivity().finish();  // close activitiy
-                                            Toast.makeText(getContext(),"Trimakasih, Pesanan Anda Segera Di Proses!!",Toast.LENGTH_SHORT).show();
+                                            // buat notifikasi
+                                            MyNotification myNotification = new MyNotification();
+                                            myNotification.setUid(UUID.randomUUID().toString());
+                                            myNotification.setTitle("Pesanan Terbaru");
+                                            myNotification.setContent("Anda memiliki janji baru untuk perawatan rambut khusus!");
+                                            myNotification.setRead(false); // menyaring notifikasi dengan "read" is false on barber staf
 
+                                            // notifikasi submit untuk 'notifikation' collection barber
+                                            FirebaseFirestore.getInstance()
+                                                    .collection("AllSalon")
+                                                    .document(Common.city)
+                                                    .collection("Branch")
+                                                    .document(Common.currentSalon.getSalonId())
+                                                    .collection("Barber")
+                                                    .document(Common.currentBarber.getBarberId())
+                                                    .collection("Notifications") //**
+                                                    .document(myNotification.getUid()) // buat unique key
+                                                    .set(myNotification)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+
+                                                            if (dialog.isShowing())
+                                                                dialog.dismiss();
+
+                                                            addToCalendar(Common.bookingDate,
+                                                                    Common.converTimeSlotToString(Common.currentTimeSlot));
+                                                            resetStaticData();
+                                                            getActivity().finish();  // close activitiy
+                                                            Toast.makeText(getContext(),"Trimakasih, Pesanan Anda Segera Di Proses!!",Toast.LENGTH_SHORT).show();
+
+                                                        }
+                                                    });
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
