@@ -9,30 +9,30 @@
     android:layout_height="160dp">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/txt_salon_name"
-            android:text="Salon #1"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/classique_saigon"
             android:gravity="center_horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:text="Salon #1"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txt_salon_address"
-            android:text="Alamat Salon #1"
-            android:textSize="16sp"
-            android:textStyle="italic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/bellerose"
             android:gravity="center_horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:text="Alamat Salon #1"
+            android:textSize="16sp"
+            android:textStyle="italic" />
 
     </LinearLayout>
 
