@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,17 +31,25 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.husin.bokingkangbarers.Common.Common;
 import com.husin.bokingkangbarers.Model.BookingInformation;
+import com.husin.bokingkangbarers.Model.FCMResponse;
+import com.husin.bokingkangbarers.Model.FCMSendData;
 import com.husin.bokingkangbarers.Model.MyNotification;
+import com.husin.bokingkangbarers.Model.MyToken;
 import com.husin.bokingkangbarers.R;
+import com.husin.bokingkangbarers.Retrofit.IFCMApi;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TimeZone;
 import java.util.UUID;
 
@@ -50,12 +59,17 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import dmax.dialog.SpotsDialog;
 import io.paperdb.Paper;
+import io.reactivex.Scheduler;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class BookingStep4Fragment extends Fragment {
 
     SimpleDateFormat simpleDateFormat;
     LocalBroadcastManager localBroadcastManager;
     Unbinder unbinder;
+
+    IFCMApi ifcmApi;
 
     AlertDialog dialog;
 
@@ -181,6 +195,7 @@ public class BookingStep4Fragment extends Fragment {
                                             myNotification.setTitle("Pesanan Terbaru");
                                             myNotification.setContent("Anda memiliki janji baru untuk perawatan rambut khusus!");
                                             myNotification.setRead(false); // menyaring notifikasi dengan "read" is false on barber staf
+                                            myNotification.setServerTimestamp(FieldValue.serverTimestamp());
 
                                             // notifikasi submit untuk 'notifikation' collection barber
                                             FirebaseFirestore.getInstance()
@@ -197,14 +212,59 @@ public class BookingStep4Fragment extends Fragment {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
 
-                                                            if (dialog.isShowing())
-                                                                dialog.dismiss();
+                                                           //get Token base on barber id
+                                                            FirebaseFirestore.getInstance()
+                                                                    .collection("Tokens")
+                                                                    .whereEqualTo("userPhone",Common.currentBarber.getBarberId())
+                                                                    .limit(1)
+                                                                    .get()
+                                                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                        @Override
+                                                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-                                                            addToCalendar(Common.bookingDate,
-                                                                    Common.converTimeSlotToString(Common.currentTimeSlot));
-                                                            resetStaticData();
-                                                            getActivity().finish();  // close activitiy
-                                                            Toast.makeText(getContext(),"Trimakasih, Pesanan Anda Segera Di Proses!!",Toast.LENGTH_SHORT).show();
+                                                                            if (task.isSuccessful() && task.getResult().size() > 0 )
+                                                                            {
+                                                                                MyToken myToken = new MyToken();
+                                                                                for (DocumentSnapshot tokenSnapShot  : task.getResult())
+                                                                                    myToken = tokenSnapShot.toObject(MyToken.class);
+
+                                                                                //membuat data untuk mengirim
+                                                                                FCMSendData sendRequest = new FCMSendData();
+                                                                                Map<String,String> dataSend = new HashMap<>();
+                                                                                dataSend.put(Common.TITLE_KEY, "New Booking");
+                                                                                dataSend.put(Common.CONTENT_KEY, "You have new booking from user"+Common.currentUser.getName());
+
+                                                                                sendRequest.setTo(myToken.getToken());
+                                                                                sendRequest.setData(dataSend);
+
+                                                                                ifcmApi.sendNotification(sendRequest)
+                                                                                        .subscribeOn(Schedulers.io())
+                                                                                        .observeOn(Schedulers.newThread())
+                                                                                        .subscribe(new Consumer<FCMResponse>() {
+                                                                                            @Override
+                                                                                            public void accept(FCMResponse fcmResponse) throws Exception {
+
+                                                                                                    dialog.dismiss();
+
+                                                                                                addToCalendar(Common.bookingDate,
+                                                                                                        Common.converTimeSlotToString(Common.currentTimeSlot));
+                                                                                                resetStaticData();
+                                                                                                getActivity().finish();  // close activitiy
+                                                                                                Toast.makeText(getContext(),"Trimakasih, Pesanan Anda Segera Di Proses!!",Toast.LENGTH_SHORT).show();
+
+
+                                                                                            }
+                                                                                        }, new Consumer<Throwable>() {
+                                                                                            @Override
+                                                                                            public void accept(Throwable throwable) throws Exception {
+                                                                                                Log.d("NOTIFICATION_ERROR", throwable.getMessage());
+                                                                                            }
+                                                                                        });
+
+                                                                            }
+
+                                                                        }
+                                                                    });
 
                                                         }
                                                     });
