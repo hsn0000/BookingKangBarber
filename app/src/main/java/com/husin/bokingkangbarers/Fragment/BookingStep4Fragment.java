@@ -43,6 +43,7 @@ import com.husin.bokingkangbarers.Model.MyNotification;
 import com.husin.bokingkangbarers.Model.MyToken;
 import com.husin.bokingkangbarers.R;
 import com.husin.bokingkangbarers.Retrofit.IFCMApi;
+import com.husin.bokingkangbarers.Retrofit.RetrofitClient;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -60,11 +61,14 @@ import butterknife.Unbinder;
 import dmax.dialog.SpotsDialog;
 import io.paperdb.Paper;
 import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class BookingStep4Fragment extends Fragment {
 
+    CompositeDisposable compositeDisposable = new CompositeDisposable();
     SimpleDateFormat simpleDateFormat;
     LocalBroadcastManager localBroadcastManager;
     Unbinder unbinder;
@@ -193,7 +197,7 @@ public class BookingStep4Fragment extends Fragment {
                                             MyNotification myNotification = new MyNotification();
                                             myNotification.setUid(UUID.randomUUID().toString());
                                             myNotification.setTitle("Pesanan Terbaru");
-                                            myNotification.setContent("Anda memiliki janji baru untuk perawatan rambut khusus!");
+                                            myNotification.setContent("Anda memiliki janji baru untuk perawatan & potong rambut, khusus!"+Common.currentUser.getName());
                                             myNotification.setRead(false); // menyaring notifikasi dengan "read" is false on barber staf
                                             myNotification.setServerTimestamp(FieldValue.serverTimestamp());
 
@@ -215,7 +219,7 @@ public class BookingStep4Fragment extends Fragment {
                                                            //get Token base on barber id
                                                             FirebaseFirestore.getInstance()
                                                                     .collection("Tokens")
-                                                                    .whereEqualTo("userPhone",Common.currentBarber.getBarberId())
+                                                                    .whereEqualTo("userPhone",Common.currentBarber.getUsername())
                                                                     .limit(1)
                                                                     .get()
                                                                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -231,35 +235,41 @@ public class BookingStep4Fragment extends Fragment {
                                                                                 //membuat data untuk mengirim
                                                                                 FCMSendData sendRequest = new FCMSendData();
                                                                                 Map<String,String> dataSend = new HashMap<>();
-                                                                                dataSend.put(Common.TITLE_KEY, "New Booking");
-                                                                                dataSend.put(Common.CONTENT_KEY, "You have new booking from user"+Common.currentUser.getName());
+                                                                                dataSend.put(Common.TITLE_KEY, "Pesanan Baru");
+                                                                                dataSend.put(Common.CONTENT_KEY, "Anda memiliki pesanan baru dari pelanggan"+Common.currentUser.getName());
 
                                                                                 sendRequest.setTo(myToken.getToken());
                                                                                 sendRequest.setData(dataSend);
 
-                                                                                ifcmApi.sendNotification(sendRequest)
-                                                                                        .subscribeOn(Schedulers.io())
-                                                                                        .observeOn(Schedulers.newThread())
-                                                                                        .subscribe(new Consumer<FCMResponse>() {
-                                                                                            @Override
-                                                                                            public void accept(FCMResponse fcmResponse) throws Exception {
+                                                                             compositeDisposable.add(ifcmApi.sendNotification(sendRequest)
+                                                                                     .subscribeOn(Schedulers.io())
+                                                                                     .observeOn(AndroidSchedulers.mainThread())
+                                                                                     .subscribe(new Consumer<FCMResponse>() {
+                                                                                         @Override
+                                                                                         public void accept(FCMResponse fcmResponse) throws Exception {
 
-                                                                                                    dialog.dismiss();
+                                                                                             dialog.dismiss();
 
-                                                                                                addToCalendar(Common.bookingDate,
-                                                                                                        Common.converTimeSlotToString(Common.currentTimeSlot));
-                                                                                                resetStaticData();
-                                                                                                getActivity().finish();  // close activitiy
-                                                                                                Toast.makeText(getContext(),"Trimakasih, Pesanan Anda Segera Di Proses!!",Toast.LENGTH_SHORT).show();
+                                                                                             addToCalendar(Common.bookingDate,
+                                                                                                     Common.converTimeSlotToString(Common.currentTimeSlot));
+                                                                                             resetStaticData();
+                                                                                             getActivity().finish();  // close activitiy
+                                                                                             Toast.makeText(getContext(),"Trimakasih, Pesanan Anda Segera Di Proses!!",Toast.LENGTH_SHORT).show();
 
 
-                                                                                            }
-                                                                                        }, new Consumer<Throwable>() {
-                                                                                            @Override
-                                                                                            public void accept(Throwable throwable) throws Exception {
-                                                                                                Log.d("NOTIFICATION_ERROR", throwable.getMessage());
-                                                                                            }
-                                                                                        });
+                                                                                         }
+                                                                                     }, new Consumer<Throwable>() {
+                                                                                         @Override
+                                                                                         public void accept(Throwable throwable) throws Exception {
+                                                                                             Log.d("NOTIFICATION_ERROR", throwable.getMessage());
+                                                                                             addToCalendar(Common.bookingDate,
+                                                                                                     Common.converTimeSlotToString(Common.currentTimeSlot));
+                                                                                             resetStaticData();
+                                                                                             getActivity().finish();  // close activitiy
+                                                                                             Toast.makeText(getContext(),"Trimakasih, Pesanan Anda Segera Di Proses!!",Toast.LENGTH_SHORT).show();
+
+                                                                                         }
+                                                                                     }));
 
                                                                             }
 
@@ -441,6 +451,8 @@ public class BookingStep4Fragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        ifcmApi = RetrofitClient.getInstance().create(IFCMApi.class);
+
         // gunakan format tanggal untuk di tampilkan saat Confirmasi
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -454,6 +466,7 @@ public class BookingStep4Fragment extends Fragment {
     @Override
     public void onDestroy() {
         localBroadcastManager.unregisterReceiver(confirmBookingReceiver);
+        compositeDisposable.clear();
         super.onDestroy();
     }
 
