@@ -197,7 +197,7 @@ public class BookingStep4Fragment extends Fragment {
                                             MyNotification myNotification = new MyNotification();
                                             myNotification.setUid(UUID.randomUUID().toString());
                                             myNotification.setTitle("Pesanan Terbaru");
-                                            myNotification.setContent("Anda memiliki janji baru untuk perawatan & potong rambut, khusus!"+Common.currentUser.getName());
+                                            myNotification.setContent("Anda memiliki janji baru untuk perawatan & potong rambut,dengan Bpk/Sdr : "+Common.currentUser.getName());
                                             myNotification.setRead(false); // menyaring notifikasi dengan "read" is false on barber staf
                                             myNotification.setServerTimestamp(FieldValue.serverTimestamp());
 
@@ -229,7 +229,7 @@ public class BookingStep4Fragment extends Fragment {
                                                                             if (task.isSuccessful() && task.getResult().size() > 0 )
                                                                             {
                                                                                 MyToken myToken = new MyToken();
-                                                                                for (DocumentSnapshot tokenSnapShot  : task.getResult())
+                                                                                for (DocumentSnapshot tokenSnapShot : task.getResult())
                                                                                     myToken = tokenSnapShot.toObject(MyToken.class);
 
                                                                                 //membuat data untuk mengirim

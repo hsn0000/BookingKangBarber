@@ -135,7 +135,7 @@ public class HomeActivity extends AppCompatActivity {
         // init dialog
 
         bottomSheetDialog = new BottomSheetDialog(this);
-        bottomSheetDialog.setTitle("One More Step!");
+        bottomSheetDialog.setTitle("Satu Langkah Lagi!");
         bottomSheetDialog.setCanceledOnTouchOutside(false);
         bottomSheetDialog.setCancelable(false);
         View sheetView = getLayoutInflater().inflate(R.layout.layout_update_information,null);
@@ -166,7 +166,7 @@ public class HomeActivity extends AppCompatActivity {
                                 Common.currentUser = user;
                                 bottomNavigationView.setSelectedItemId(R.id.action_home);
 
-                                Toast.makeText(HomeActivity.this, "Thank You", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(HomeActivity.this, "Trimakasih", Toast.LENGTH_SHORT).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
 

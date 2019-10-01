@@ -12,7 +12,7 @@ public interface IFCMApi {
 
     @Headers({
             "Content-Type:aplication/json",
-            "Authorization:key=AAAAD0oLwKA:APA91bGrL0jIeptXjAA33uuzEAywvygP4wzgils1kCLpgF_BXEg8A8fRRRm3FGwdllmhNwDB207sUA914Hjq7twB9r9tms_V56fb_SVAeKdtEY5WWG8kvFUaDjVKXR1-RTKK9CBZP7tG"
+            "Authorization:key=AAAAD0oLwKA:APA91bGrL0jIeptXjAA33uuzEAywvygP4wzgils1kCLpgF_BXEg8A8fRRRm3FGwdllmhNwDB207sUA914Hjq7twB9r9tms_V56fb_SVAeKdtEY5WWG8kvFUaDjVKXR1-RTKK9CBZP7tG "
     })
 
     @POST("fcm/send")

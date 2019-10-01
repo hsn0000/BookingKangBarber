@@ -188,13 +188,13 @@ public class HomeFragment extends Fragment implements ILoookbookLoadListener, IB
                     // sebelum menghapus dari user perlu mengahapus dari kalendar
                     // ambil save Uri dari Event add
                     Paper.init(getActivity());
-                    if (Paper.book().read(Common.EVENT_URI_CACHE) != null)
+                    if(Paper.book().read(Common.EVENT_URI_CACHE) != null)
                     {
                         String eventString = Paper.book().read(Common.EVENT_URI_CACHE).toString();
-                        Uri eventUri = null;
-                        if (eventString != null && !TextUtils.isEmpty(eventString))
+                        Uri eventUri=null;
+                        if(eventString != null && !TextUtils.isEmpty(eventString))
                             eventUri = Uri.parse(eventString);
-                        if (eventUri != null)
+                        if(eventUri != null)
                             getActivity().getContentResolver().delete(eventUri,null,null);
 
                     }
