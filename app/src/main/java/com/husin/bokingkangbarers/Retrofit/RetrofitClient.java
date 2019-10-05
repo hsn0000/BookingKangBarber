@@ -11,7 +11,7 @@ public class RetrofitClient {
     public static Retrofit getInstance() {
         if (instance == null)
             instance = new Retrofit.Builder()
-                    .baseUrl("https://fcm.googleapis.com/")
+                    .baseUrl("https://fcm.googleapis.com/fcm/send/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();

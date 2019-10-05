@@ -236,7 +236,7 @@ public class BookingStep4Fragment extends Fragment {
                                                                                 FCMSendData sendRequest = new FCMSendData();
                                                                                 Map<String,String> dataSend = new HashMap<>();
                                                                                 dataSend.put(Common.TITLE_KEY, "Pesanan Baru");
-                                                                                dataSend.put(Common.CONTENT_KEY, "Anda memiliki pesanan baru dari pelanggan"+Common.currentUser.getName());
+                                                                                dataSend.put(Common.CONTENT_KEY, "Anda memiliki pesanan baru dari pelanggan bpk/sodara,"+Common.currentUser.getName());
 
                                                                                 sendRequest.setTo(myToken.getToken());
                                                                                 sendRequest.setData(dataSend);
